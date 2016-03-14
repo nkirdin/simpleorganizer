@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:p="http://primefaces.org/ui"
+    xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+
+<f:metadata>
+    <f:viewAction action="#{addBean.viewAction}" />
+</f:metadata>
+<h:head></h:head>
+<h:body>
+    <ui:composition template="/WEB-INF/templates/mainLayout.xhtml">
+        <ui:define name="title">Simple Organizer : Add Person</ui:define>
+        <ui:define name="TopHeaderLeft">
+            Simple Organizer : Phone Book : Add Person
+        </ui:define>
+        <ui:define name="informationPane">
+            <h:form id="idAddPerson">
+                <p:panel style="height:25em">
+                    <ui:include src="editPanel.xhtml" />
+                </p:panel>
+                <p:outputPanel>
+                    <h:panelGrid columns="3">
+                        <h:commandButton value="Save"
+                            action="personTable?faces-redirect=true"
+                            actionListener="#{addBean.saveHandler}"
+                            process="@form" />
+                        <h:button value="Return" outcome="personTable" />
+                        <h:commandButton value="Revert"
+                            actionListener="#{addBean.revertHandler}"
+                            update="@form" />
+                    </h:panelGrid>
+                </p:outputPanel>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</h:body>
+</html>

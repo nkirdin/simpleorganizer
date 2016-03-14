@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:p="http://primefaces.org/ui"
+    xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+<f:metadata>
+    <f:viewAction action="#{accountEditBean.viewAction}" />
+</f:metadata>
+<h:head></h:head>
+<h:body>
+    <ui:composition template="/WEB-INF/templates/mainLayout.xhtml">
+        <ui:define name="title">Simple Organizer : Account</ui:define>
+        <ui:define name="TopHeaderLeft">
+            Simple Organizer : Account
+        </ui:define>
+        <ui:define name="informationPane">
+            <h:form id="idEditAccount">
+                <p:panel style="height:25em">
+                    <p:fieldset legend="Username ">
+                        <h:outputText value="#{accountEditBean.username}" />
+                    </p:fieldset>
+                    <br />
+                    <p:fieldset legend="Groups">
+                        <h:selectManyCheckbox id="idGroupSetSelection"
+                            value="#{accountEditBean.groupSet}" disabled="true"
+                            layout="lineDirection">
+                            <f:selectItems value="#{accountEditBean.groupSet}"
+                                var="group" />
+                        </h:selectManyCheckbox>
+                    </p:fieldset>
+                    <br />
+                    <p:fieldset legend="Password" rendered="#{accountEditBean.fieldRenderedForRole}">
+                        <h:panelGrid columns="3">
+                            <h:outputText value="Type password: " />
+                            <h:inputSecret id="idFirstPassword"
+                                value="#{accountEditBean.firstPasswordString}" />
+                            <p:message for="idFirstPassword" />
+                            <h:outputText value="Retype password: " />
+                            <h:inputSecret id="idRetypedPassword"
+                                value="#{accountEditBean.retypedPasswordString}" />
+                            <p:message for="idPasswordCheck" />
+                            <h:commandButton value="Reset"
+                                action="#{accountEditBean.resetPassword}"
+                                execute="idEditAccount" update="idEditAccount" />
+                            <h:commandButton value="Change Password"
+                                execute="idEditAccount"
+                                action="#{accountEditBean.savePassword}" />
+                        </h:panelGrid>
+                        <h:inputHidden id="idPasswordCheck"
+                            validator="#{utils.validatePassword}" value="needed" />
+
+                    </p:fieldset>
+                </p:panel>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</h:body>
+</html>

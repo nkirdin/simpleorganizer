@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:p="http://primefaces.org/ui"
+    xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+<h:head></h:head>
+<h:body>
+    <ui:composition>
+        <h:panelGrid colums="1">
+            <h:panelGroup>
+                <h:outputText value="First name: " />
+                <h:inputText value="#{editPanelBean.firstname}">
+                    <f:ajax event="change" />
+                </h:inputText>
+            </h:panelGroup>
+            <h:panelGroup>
+                <h:outputText value="Last name: " />
+                <h:inputText value="#{editPanelBean.lastname}">
+                    <f:ajax event="change" />
+                </h:inputText>
+            </h:panelGroup>
+        </h:panelGrid>
+        <br />
+        <p:fieldset>
+            <f:facet name="legend" style="background-color:white">Adding Phone</f:facet>
+            <h:outputText value="Phone number:" />
+            <h:inputText value="#{editPanelBean.addingPhone.number}">
+                <f:ajax event="change" />
+            </h:inputText>
+                    &#160; &#160;
+                    <h:outputText value="Phone Type:" />
+            <h:selectOneMenu value="#{editPanelBean.addingPhone.phoneType}">
+                <f:selectItems value="#{editPanelBean.permittedPhoneTypeSet()}" />
+                <f:ajax event="change" execute="@form" render="@form" />
+            </h:selectOneMenu>
+                        &#160; &#160;&#160; &#160;
+                    <h:commandButton value="Add Phone"
+                actionListener="#{editPanelBean.addPhoneHandler}" />
+        </p:fieldset>
+        <br />
+        <h:panelGroup layout="block" style="height:10em">
+            <p:dataTable id="idEditPersonPhoneTable"
+                value="#{editPanelBean.person.phones}" var="phone"
+                scrollable="true" scrollHeight="100%"
+                rendered="#{not empty editPanelBean.person.phones}"
+                rowIndexVar="rowIndex">
+                <f:facet name="header">Phone Table</f:facet>
+                <p:column headerText="N" style="width:5%">
+                    #{rowIndex+1}
+                </p:column>
+                <p:column>
+                    <f:facet name="header">Phone number</f:facet>
+                    <h:inputText value="#{phone.number}">
+                        <f:ajax event="change" />
+                    </h:inputText>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">Phone Type</f:facet>
+                    <h:selectOneMenu value="#{phone.phoneType}">
+                        <f:selectItems
+                            value="#{editPanelBean.permittedPhoneTypeSet(phone)}" />
+                        <f:ajax event="change" execute="@form" render="@form" />
+                    </h:selectOneMenu>
+                </p:column>
+                <p:column>
+                    <h:commandButton value="Delete Phone"
+                        action="#{editPanelBean.deletePhone(phone)}" />
+                </p:column>
+            </p:dataTable>
+        </h:panelGroup>
+    </ui:composition>
+</h:body>
+</html>

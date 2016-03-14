@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui">
+<f:metadata>
+    <f:viewAction action="#{resultPageBean.checkUserTable}" />
+</f:metadata>
+<ui:composition template="/WEB-INF/templates/mainLayout.xhtml">
+    <ui:define name="title">Simple Organizer : Scheme Generation Result</ui:define>
+    <ui:define name="TopHeaderLeft">
+            Simple Organizer : Scheme Generation Result
+        </ui:define>
+    <ui:define name="informationPane">
+        <p:panel>
+            <h:outputText value="dbinit version: " /><h:outputText value="#{resultPageBean.version}" />
+            <br />
+            <h:outputText value="schema generation result: " />
+            <h:outputText value="success" rendered="#{resultPageBean.userTableGenerated}" />
+            <h:outputText value="fail" rendered="#{not resultPageBean.userTableGenerated}" />
+        </p:panel>
+    </ui:define>
+
+</ui:composition>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:p="http://primefaces.org/ui"
+    xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+<f:metadata>
+    <f:viewParam name="selectedPersonId"
+        value="#{viewPanelBean.selectedPersonId}" />
+    <f:viewAction action="#{viewPanelBean.init}" />
+</f:metadata>
+<h:head></h:head>
+<h:body>
+    <ui:composition template="/WEB-INF/templates/mainLayout.xhtml">
+        <ui:define name="title">Simple Organizer : View Person</ui:define>
+        <ui:define name="TopHeaderLeft">
+            Simple Organizer : Phone Book : View Person
+        </ui:define>
+        <ui:define name="informationPane">
+            <h:form id="idVewPersonForm">
+                <ui:include src="viewPanel.xhtml" />
+                <p:outputPanel>
+                    <h:panelGrid columns="1">
+                        <h:button value="Return" outcome="personTable" />
+                    </h:panelGrid>
+                </p:outputPanel>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</h:body>
+</html>

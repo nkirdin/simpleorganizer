@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:p="http://primefaces.org/ui"
+    xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+
+<ui:composition template="/WEB-INF/templates/mainLayout.xhtml">
+    <ui:define name="title">Simple Organizer : Schedule</ui:define>
+    <ui:define name="TopHeaderLeft">
+        Simple Organizer : Schedule
+    </ui:define>
+    <ui:define name="informationPane">
+        <h:form id="idScheduleForm">
+            <p:growl id="idSheduleMessages" showDetail="true" rendered="false" />
+            <h:panelGroup layout="block" style="height:25em; overflow:scroll">
+                <p:schedule value="#{scheduleBean.model}" id="idSchedule"
+                    widgetVar="userScheduleWidget" aspectRatio="3"
+                    draggable="true" initialDate="#{scheduleBean.initialDate}">
+                    <p:ajax event="dateSelect"
+                        listener="#{scheduleBean.dateSelectHandler}"
+                        update="idSchedule idEventDetailsDialog" />
+                    <p:ajax event="eventSelect"
+                        update="idSheduleMessages idEventDetailsDialog"
+                        listener="#{scheduleBean.eventSelectHandler}" />
+                    <p:ajax event="eventMove"
+                        update="idSheduleMessages idEventDetailsDialog"
+                        listener="#{scheduleBean.eventMoveHandler}" />
+                    <p:ajax event="eventResize"
+                        update="idSheduleMessages idEventDetailsDialog"
+                        listener="#{scheduleBean.eventResizeHandler}" />
+                    <p:ajax event="viewChange"
+                        update="idSheduleMessages idEventDetailsDialog"
+                        listener="#{scheduleBean.viewChangeHandler}" />
+                </p:schedule>
+            </h:panelGroup>
+            <p:panel header="Event Details" toggleable="true">
+                <h:panelGrid id="idEventDetailsDialog" columns="2">
+                    <h:outputLabel for="title" value="Title:" />
+                    <p:inputText id="title"
+                        value="#{scheduleBean.scheduleEvent.title}"
+                        required="true" />
+
+                    <h:outputLabel for="from" value="From:" />
+                    <p:inputMask id="from"
+                        value="#{scheduleBean.scheduleEvent.startDate}"
+                        mask="99/99/9999">
+                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                    </p:inputMask>
+
+                    <h:outputLabel for="to" value="To:" />
+                    <p:inputMask id="to"
+                        value="#{scheduleBean.scheduleEvent.endDate}"
+                        mask="99/99/9999">
+                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                    </p:inputMask>
+
+                    <h:outputLabel for="allDay" value="All Day:" />
+                    <h:selectBooleanCheckbox id="allDay"
+                        value="#{scheduleBean.scheduleEvent.allDay}" />
+
+                    <p:commandButton type="reset" value="Reset" />
+                    <p:commandButton value="Save"
+                        update="idScheduleForm idSheduleMessages"
+                        actionListener="#{scheduleBean.saveEventDetailsDialogHandler}" />
+                </h:panelGrid>
+            </p:panel>
+        </h:form>
+    </ui:define>
+</ui:composition>
+</html>

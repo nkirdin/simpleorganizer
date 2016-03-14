@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:p="http://primefaces.org/ui"
+    xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+<f:metadata>
+    <f:viewAction action="#{personTableBean.viewAction}" />
+</f:metadata>
+<h:head></h:head>
+<h:body>
+    <ui:composition template="/WEB-INF/templates/mainLayout.xhtml">
+        <ui:define name="title">Simple Organizer : Phone Book</ui:define>
+        <ui:define name="TopHeaderLeft">
+            Simple Organizer : Phone Book
+        </ui:define>
+        <ui:define name="informationPane">
+            <h:form id="idPersonTableForm">
+                <p:panel style="min-height:25em">
+                    <p:dataTable value="#{personTableBean.persons}" var="person"
+                        rows="10" paginator="true" paginatorPosition="top"
+                        selectionMode="single"
+                        selection="#{personTableBean.selectedPerson}"
+                        rowKey="#{person.id}"
+                        first="#{personTableBean.firstRowOnPersonTablePage}"
+                        rowIndexVar="rowIndex" id="idPersonTable">
+                        <p:ajax event="page"
+                            listener="#{personTableBean.viewPersonTableHandler}"
+                            update="idPersonTableForm:idPersonTableMenu" />
+                        <p:ajax event="rowSelect" execute="@form" update="@form"
+                            listener="#{personTableBean.viewPersonTableRowselectHandler}" />
+                        <p:ajax event="rowUnselect" execute="@form"
+                            update="@form"
+                            listener="#{personTableBean.viewPersonTableRowunselectHandler}" />
+                        <p:column headerText="N" style="width:5%">
+                        #{rowIndex+1}
+                    </p:column>
+                        <p:column>
+                            <f:facet name="header">First name</f:facet>
+                        #{person.firstname}
+                    </p:column>
+                        <p:column>
+                            <f:facet name="header">Last name</f:facet>
+                        #{person.lastname}
+                    </p:column>
+                        <p:column>
+                            <f:facet name="header">Default Phone Number</f:facet>
+                        #{personTableBean.getDefaultPhoneNumber(person)}
+                    </p:column>
+                    </p:dataTable>
+                </p:panel>
+                <p:outputPanel id="idPersonTableMenu">
+                    <h:panelGrid columns="5">
+                        <h:button value="View" outcome="view"
+                            disabled="#{empty personTableBean.selectedPersonId}">
+                            <f:param name="selectedPersonId"
+                                value="#{personTableBean.selectedPersonId}" />
+                        </h:button>
+                        <h:button value="Edit" outcome="edit"
+                            disabled="#{empty personTableBean.selectedPersonId}">
+                            <f:param name="selectedPersonId"
+                                value="#{personTableBean.selectedPersonId}" />
+                        </h:button>
+                        <h:button value="Add" outcome="add" />
+                        <h:panelGroup>
+                            <p:spacer width="5em">&#160;&#160;&#160;&#160;&#160;</p:spacer>
+                        </h:panelGroup>
+                        <h:button value="Delete" outcome="delete"
+                            disabled="#{empty personTableBean.selectedPersonId}">
+                            <f:param name="selectedPersonId"
+                                value="#{personTableBean.selectedPersonId}" />
+                        </h:button>
+                    </h:panelGrid>
+                </p:outputPanel>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</h:body>
+</html>

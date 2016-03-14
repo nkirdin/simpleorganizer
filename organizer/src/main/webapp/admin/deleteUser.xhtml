@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:p="http://primefaces.org/ui"
+    xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+<f:metadata>
+    <f:viewParam name="selectedUserId" value="#{deleteUserBean.selectedUserId}" />
+    <f:viewAction action="#{deleteUserBean.deleteUserViewAction}" />
+</f:metadata>
+<h:head></h:head>
+<h:body>
+    <ui:composition template="/WEB-INF/templates/mainLayout.xhtml">
+        <ui:define name="title">Simple Organizer : Admin Page</ui:define>
+        <ui:define name="TopHeaderLeft">
+            Simple Organizer : Admin Page : Delete User
+        </ui:define>
+        <ui:define name="informationPane">
+            <h:form id="idAdminDeleteUserForm">
+                <p:panel style="height:25em">
+                    <p:fieldset legend="Username ">
+                        <h:outputText value="#{deleteUserBean.username}" />
+                    </p:fieldset>
+                    <br />
+                    <p:fieldset legend="Groups">
+                        <h:selectManyCheckbox id="idGroupSetSelection"
+                            value="#{deleteUserBean.groupSet}"
+                            layout="lineDirection" disabled="true">
+                            <f:selectItems value="#{deleteUserBean.groupSet}"
+                                var="group" itemLabel="#{group}" />
+                        </h:selectManyCheckbox>
+                    </p:fieldset>
+                </p:panel>
+                <p:outputPanel>
+                    <h:panelGrid columns="2">
+                        <h:commandButton value="Delete"
+                            action="/admin/index?faces-redirect=true"
+                            actionListener="#{deleteUserBean.deleteDeleteUserHandler}" />
+                        <h:button value="Return" outcome="/admin/index" />
+                    </h:panelGrid>
+                </p:outputPanel>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</h:body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui">
+<f:metadata>
+    <f:viewAction action="#{logoutBean.viewAction}" />
+</f:metadata>
+
+<h:head>
+    <title>Simple Organizer Logout</title>
+</h:head>
+<h:body>
+    <ui:composition template="/WEB-INF/templates/mainLayout.xhtml">
+        <ui:define name="title">Simple Organizer : Logout</ui:define>
+        <ui:define name="TopHeaderLeft">
+            Simple Organizer : Logout
+        </ui:define>
+        <ui:define name="informationPane">
+            <p:panel>
+                    In order to begin to work with the Simple Organizer click on the
+                    <h:link value="Login page" outcome="/user/personTable.xhtml" />
+            </p:panel>
+        </ui:define>
+    </ui:composition>
+</h:body>
+</html>

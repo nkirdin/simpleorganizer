@@ -1,0 +1,46 @@
+package simpleorganizer.view;
+
+import java.io.Serializable;
+
+import javax.ejb.EJB;
+import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
+
+import simpleorganizer.model.Person;
+import simpleorganizer.service.PersonService;
+
+@Named
+@ViewScoped
+public class AddBean implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
+    @EJB
+    private PersonService personService;
+
+    @Inject
+    private EditPanelBean editPanelBean;
+
+    public void viewAction() {
+        initPersonProperties();
+    }
+
+    private void initPersonProperties() {
+        Person person = personService.getNewPerson();
+        person.setFirstname("");
+        person.setLastname("");
+        editPanelBean.setPerson(person);
+        editPanelBean.init();
+    }
+
+    public void saveHandler() {
+        Person person = editPanelBean.getPerson();
+        personService.add(person);
+    }
+
+    public void revertHandler() {
+        initPersonProperties();
+    }
+
+}

@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:p="http://primefaces.org/ui"
+    xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+<f:metadata>
+    <f:viewParam name="selectedUserId" value="#{editUserBean.selectedUserId}" />
+    <f:viewAction action="#{editUserBean.editUserViewAction}" />
+</f:metadata>
+<h:head></h:head>
+<h:body>
+    <ui:composition template="/WEB-INF/templates/mainLayout.xhtml">
+        <ui:define name="title">Simple Organizer : Admin Page</ui:define>
+        <ui:define name="TopHeaderLeft">
+            Simple Organizer : Admin Page : Edit User
+        </ui:define>
+        <ui:define name="informationPane">
+            <h:form id="idEditUserForm">
+                <p:panel style="height:25em">
+                    <p:fieldset legend="Username ">
+                        <h:outputText value="#{editUserBean.username}" />
+                    </p:fieldset>
+                    <br />
+                    <p:fieldset legend="Groups">
+                        <h:selectManyCheckbox id="idGroupSetSelection"
+                            value="#{editUserBean.editedGroupSet}"
+                            layout="lineDirection">
+                            <f:selectItems
+                                value="#{editUserBean.permittedGroupSet}"
+                                var="group" itemLabel="#{group}" />
+                        </h:selectManyCheckbox>
+                        <h:panelGrid columns="2">
+                            <h:commandButton value="Reset"
+                                action="#{editUserBean.resetGroupSet}"
+                                execute="idEditUserForm" update="idEditUserForm" />
+                            <h:commandButton value="Change Groups"
+                                execute="idEditUserForm"
+                                action="#{editUserBean.saveGroupSet}" />
+                        </h:panelGrid>
+                    </p:fieldset>
+                    <br />
+                    <p:fieldset legend="Password">
+                        <h:panelGrid columns="3">
+                            <h:outputText value="Type password: " />
+                            <h:inputSecret id="idFirstPassword"
+                                value="#{editUserBean.firstPasswordString}" />
+                            <p:message for="idFirstPassword" />
+                            <h:outputText value="Retype password: " />
+                            <h:inputSecret id="idRetypedPassword"
+                                value="#{editUserBean.retypedPasswordString}" />
+                            <p:message for="idPasswordCheck" />
+                            <h:commandButton value="Reset"
+                                action="#{editUserBean.resetPassword}"
+                                execute="idEditUserForm" update="idEditUserForm" />
+                            <h:commandButton value="Change Password"
+                                execute="idEditUserForm"
+                                action="#{editUserBean.savePassword}" />
+                        </h:panelGrid>
+                        <h:inputHidden id="idPasswordCheck"
+                            validator="#{utils.validatePassword}" value="needed" />
+                    </p:fieldset>
+                </p:panel>
+                <p:outputPanel>
+                    <h:panelGrid columns="1">
+                        <h:button value="Return" outcome="/admin/index" />
+                    </h:panelGrid>
+                </p:outputPanel>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</h:body>
+</html>

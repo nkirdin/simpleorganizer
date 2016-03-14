@@ -1,0 +1,31 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+<h:head>
+    <title><ui:insert name="title">Simpleorganizer main page</ui:insert></title>
+</h:head>
+
+<h:body>
+    <ui:debug hotkey="x"
+        rendered="#{initParam['javax.faces.FACELETS_DEVELOPMENT']}" />
+    <div id="content">
+        <h:form id="idMainLayoutForm">
+            <p:toolbar header="Simple Organizer">
+                <f:facet name="left">
+                    <ui:insert name="TopHeaderLeft">
+                    Simple Organizer
+                    </ui:insert>
+                </f:facet>
+            </p:toolbar>
+        </h:form>
+        <ui:insert name="informationPane">
+            Template Information Pane Template Information Menu
+        </ui:insert>
+    </div>
+</h:body>
+</html>
