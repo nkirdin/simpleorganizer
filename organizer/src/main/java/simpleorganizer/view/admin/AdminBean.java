@@ -31,11 +31,6 @@ public class AdminBean implements Serializable {
 
     private int firstRowOnUserTablePage;
 
-
-    public void viewAction() {
-        System.out.println("AdminBean viewAction(): " + selectedUser + " id:" + selectedUserId);
-    }
-
     public List<User> getUsers() {
         return userService.getAllUsers();
     }

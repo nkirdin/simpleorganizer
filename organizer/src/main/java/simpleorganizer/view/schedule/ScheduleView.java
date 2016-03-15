@@ -73,9 +73,7 @@ public class ScheduleView implements Serializable {
     }
 
     public void onEventMove1(ScheduleEntryMoveEvent event) {
-        System.out.println("ScheduleView onEventMove(): " + event.getScheduleEvent().getStartDate());
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Event moved", "Day delta:" + event.getDayDelta() + ", Minute delta:" + event.getMinuteDelta());
-
         addMessage(message);
     }
 

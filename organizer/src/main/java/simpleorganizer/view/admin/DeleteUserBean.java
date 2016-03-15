@@ -32,7 +32,6 @@ public class DeleteUserBean implements Serializable {
 
     public void deleteUserViewAction() {
         user = userService.findById(selectedUserId);
-        System.out.println("DeleteUserBean deleteUserViewAction() user:" + user);
     }
 
     public void deleteDeleteUserHandler(ActionEvent event) {

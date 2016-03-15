@@ -51,8 +51,6 @@ public class ScheduleBean implements Serializable {
 
     public void eventSelectHandler(SelectEvent selectEvent) {
         scheduleEvent = (OrganizerScheduleEvent) selectEvent.getObject();
-        System.out.println(
-                "ScheduleBean eventSelectHandler(): " + scheduleEvent);
     }
 
     public void viewChangeHandler(SelectEvent selectEvent) {

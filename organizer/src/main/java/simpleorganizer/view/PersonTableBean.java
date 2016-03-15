@@ -55,11 +55,9 @@ public class PersonTableBean implements Serializable {
     }
 
     public void viewPersonTableRowselectHandler(SelectEvent event) {
-        System.out.println("PersonTableBean selectrow: " + event);
     }
 
     public void viewPersonTableRowunselectHandler(UnselectEvent event) {
-        System.out.println("PersonTableBean unselectrow: " + event);
     }
 
     public Person getSelectedPerson() {
