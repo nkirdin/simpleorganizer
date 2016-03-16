@@ -36,7 +36,7 @@ public class OrganizerScheduleEventService {
     }
 
     public OrganizerScheduleEvent remove(OrganizerScheduleEvent event) {
-        em.remove(event);
+        em.remove(em.find(OrganizerScheduleEvent.class, event.getEntityId()));
         return event;
     }
 

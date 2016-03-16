@@ -31,7 +31,7 @@ public class ScheduleBean implements Serializable {
 
     private Object currentDate;
 
-    @Inject 
+    @Inject
     private OrganizerScheduleModel model;
 
     @PostConstruct
@@ -43,10 +43,6 @@ public class ScheduleBean implements Serializable {
         Date date = (Date) selectEvent.getObject();
         scheduleEvent = new OrganizerScheduleEvent("", date, date);
         initialDate = date;
-        System.out
-        .println("ScheduleBean dateSelectHandler(): " + scheduleEvent);
-        System.out
-        .println("ScheduleBean dateSelectHandler(): initialDate " + initialDate);
     }
 
     public void eventSelectHandler(SelectEvent selectEvent) {
@@ -54,8 +50,6 @@ public class ScheduleBean implements Serializable {
     }
 
     public void viewChangeHandler(SelectEvent selectEvent) {
-        System.out.println(
-                "ScheduleBean viewChangeHandler(): initialDate: " + initialDate + " object: " + selectEvent.getObject());
     }
 
     public void saveEventDetailsDialogHandler() {
@@ -64,8 +58,12 @@ public class ScheduleBean implements Serializable {
         } else {
             model.updateEvent(scheduleEvent);
         }
-        System.out.println("ScheduleBean saveEventDetailsDialogHandler(): " + scheduleEvent);
-        scheduleEvent = new OrganizerScheduleEvent("",null, null);
+        scheduleEvent = new OrganizerScheduleEvent("", null, null);
+    }
+
+    public void deleteEventDetailsDialogHandler() {
+        model.deleteEvent(scheduleEvent);
+        scheduleEvent = new OrganizerScheduleEvent("", null, null);
     }
 
     public void eventMoveHandler(ScheduleEntryMoveEvent event) {
@@ -75,7 +73,8 @@ public class ScheduleBean implements Serializable {
 
         addMessage(message);
         model.update(event.getScheduleEvent());
-        System.out.println("ScheduleView eventMoveHandler(): " + event.getScheduleEvent());
+        System.out.println(
+                "ScheduleView eventMoveHandler(): " + event.getScheduleEvent());
     }
 
     public void eventResizeHandler(ScheduleEntryResizeEvent event) {
@@ -85,8 +84,8 @@ public class ScheduleBean implements Serializable {
 
         addMessage(message);
         model.update(event.getScheduleEvent());
-        System.out
-        .println("ScheduleBean eventMoveHandler(): " + event.getScheduleEvent());
+        System.out.println(
+                "ScheduleBean eventMoveHandler(): " + event.getScheduleEvent());
     }
 
     public ScheduleModel getModel() {
@@ -119,6 +118,11 @@ public class ScheduleBean implements Serializable {
 
     public void setCurrentDate(Object currentDate) {
         this.currentDate = currentDate;
+    }
+
+    public boolean isEventPersisted() {
+        if (scheduleEvent == null) return false;
+        return model.isEventPersisted(scheduleEvent);
     }
 
 }

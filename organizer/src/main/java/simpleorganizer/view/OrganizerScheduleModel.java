@@ -105,4 +105,10 @@ public class OrganizerScheduleModel implements ScheduleModel, Serializable {
         this.eventLimit = eventLimit;
     }
 
+    public boolean isEventPersisted(ScheduleEvent scheduleEvent) {
+        OrganizerScheduleEvent event = (OrganizerScheduleEvent) scheduleEvent;
+        if(event.getEntityId() == null) return false;
+        return service.findById(event.getEntityId()) != null;
+    }
+
 }

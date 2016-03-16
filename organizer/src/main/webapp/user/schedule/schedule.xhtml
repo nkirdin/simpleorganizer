@@ -37,35 +37,41 @@
                 </p:schedule>
             </h:panelGroup>
             <p:panel header="Event Details" toggleable="true">
-                <h:panelGrid id="idEventDetailsDialog" columns="2">
-                    <h:outputLabel for="title" value="Title:" />
-                    <p:inputText id="title"
-                        value="#{scheduleBean.scheduleEvent.title}"
-                        required="true" />
+                <h:panelGroup id="idEventDetailsDialog">
+                    <h:panelGrid columns="2">
+                        <h:outputLabel for="title" value="Title:" />
+                        <p:inputText id="title"
+                            value="#{scheduleBean.scheduleEvent.title}"
+                            required="true" />
 
-                    <h:outputLabel for="from" value="From:" />
-                    <p:inputMask id="from"
-                        value="#{scheduleBean.scheduleEvent.startDate}"
-                        mask="99/99/9999">
-                        <f:convertDateTime pattern="dd/MM/yyyy" />
-                    </p:inputMask>
+                        <h:outputLabel for="from" value="From:" />
+                        <p:inputMask id="from"
+                            value="#{scheduleBean.scheduleEvent.startDate}"
+                            mask="99/99/9999">
+                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                        </p:inputMask>
 
-                    <h:outputLabel for="to" value="To:" />
-                    <p:inputMask id="to"
-                        value="#{scheduleBean.scheduleEvent.endDate}"
-                        mask="99/99/9999">
-                        <f:convertDateTime pattern="dd/MM/yyyy" />
-                    </p:inputMask>
+                        <h:outputLabel for="to" value="To:" />
+                        <p:inputMask id="to"
+                            value="#{scheduleBean.scheduleEvent.endDate}"
+                            mask="99/99/9999">
+                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                        </p:inputMask>
 
-                    <h:outputLabel for="allDay" value="All Day:" />
-                    <h:selectBooleanCheckbox id="allDay"
-                        value="#{scheduleBean.scheduleEvent.allDay}" />
-
+                        <h:outputLabel for="allDay" value="All Day:" />
+                        <h:selectBooleanCheckbox id="allDay"
+                            value="#{scheduleBean.scheduleEvent.allDay}" />
+                    </h:panelGrid>
                     <p:commandButton type="reset" value="Reset" />
                     <p:commandButton value="Save"
                         update="idScheduleForm idSheduleMessages"
                         actionListener="#{scheduleBean.saveEventDetailsDialogHandler}" />
-                </h:panelGrid>
+                        &#160;&#160;
+                    <p:commandButton value="Delete"
+                        disabled="#{! scheduleBean.eventPersisted}"
+                        update="idScheduleForm idSheduleMessages"
+                        actionListener="#{scheduleBean.deleteEventDetailsDialogHandler}" />
+                </h:panelGroup>
             </p:panel>
         </h:form>
     </ui:define>

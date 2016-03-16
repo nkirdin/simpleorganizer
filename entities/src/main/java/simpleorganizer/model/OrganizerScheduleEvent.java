@@ -43,7 +43,7 @@ public class OrganizerScheduleEvent implements  ScheduleEvent, Serializable {
     @Transient
     private String scheduleEventId;
 
-    @Column(name = "title")
+    @Column(name = "title", length = 512)
     private String title;
 
     @Column(name = "start_date", nullable=false)
